@@ -2,9 +2,11 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>My Portfolio</title>
+    <title>My Portfolio David</title>
+    <link rel="icon" href="/images/profile.png">
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
   </head>
   <body>
                                 
@@ -12,7 +14,7 @@
         
         
             <div style="float:left; align-content: center; padding:-10px;">
-                    <img src="/images/profile.png" width="60" height="60">
+                    <img src="/images/profile.png" width="55" height="55" style="border-radius: 50%">
             </div>
        
         <a class="active" href="#"> David Requena</a>
@@ -22,20 +24,29 @@
         <a href="#workingOn">Working On</a>
     </div>   
 
-<div class="main" id="bio">
-  <h2>Bio</h2>
-</div>
+    <div class="main" id="bio">
+    <h2>Bio</h2>
+        <p>Hello My name is David Requena.</p>
+        <p>Im a junior at Citytech working towards my CST Major</p>
+        <p>I like to keep my self a bit occupied doing hobbies Some of them are Mechanical keyboards, Model Kits and Gaming <p>
+            <div class="hobbies">
+                <img src="/images/zoid1.jpg" width="230" height="200" style="border-radius: 20%">
+                <img src="/images/zoid2.jpg" width="230" height="200" style="border-radius: 20%">
+                <img src="/images/artisanKeys.jpg" width="230" height="200" style="border-radius: 20%">
+                <img src="/images/keyboard.jpg" width="230" height="200" style="border-radius: 20%">
+            </div>
+    </div>
 
-<div class="main" id="resume">
-  <h2>Resume</h2>
-</div>
-<div class="main" id="contact">
-  <h2>Contact</h2>
-</div>
+    <div class="main" id="resume">
+    <h2>Resume</h2>
+    </div>
+    <div class="main" id="contact">
+    <h2>Contact</h2>
+    </div>
 
-<div class="main" id="workingOn">
-  <h2>Working On</h2>
-</div>
+    <div class="main" id="workingOn">
+    <h2>Working On</h2>
+    </div>
 
     <div id="content">
         
@@ -44,8 +55,8 @@
       <p>This is my portfolio.</p>
       <p>Hello, Im a junior at Citytech working towards my CST Major<p>
       <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+      <button onclick="addRandomQuote()">Hello</button>
+      <div id="quote-container"></div>
     </div>
   </body>
 </html>

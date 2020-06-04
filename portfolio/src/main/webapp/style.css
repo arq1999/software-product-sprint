@@ -8,6 +8,14 @@
   margin-top: 20px;
 }
 
+body{
+    font-family: 'Playfair Display', serif;
+}
+
+#bio{
+    font-size: 20px;
+}
+
 .navbar {
     width: 100%;
     background-color:rgba(255, 0, 0, 0.582);
