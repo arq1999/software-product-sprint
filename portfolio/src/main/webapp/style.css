@@ -8,13 +8,16 @@
   margin-top: 20px;
 }
 
-body{
-    font-family: 'Playfair Display', serif;
+html {
+  scroll-behavior: smooth;
 }
 
-#bio{
+body{
     font-size: 20px;
+    font-family: 'Playfair Display', serif;
+    
 }
+
 
 .navbar {
     width: 100%;
