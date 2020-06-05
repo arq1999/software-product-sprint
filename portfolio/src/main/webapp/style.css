@@ -8,6 +8,17 @@
   margin-top: 20px;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+body{
+    font-size: 20px;
+    font-family: 'Playfair Display', serif;
+    
+}
+
+
 .navbar {
     width: 100%;
     background-color:rgba(255, 0, 0, 0.582);
