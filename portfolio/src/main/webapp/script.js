@@ -106,16 +106,10 @@ async function getRandomQuoteUsingAsyncAwait() {
 
 async function getData() {
   fetch('/data').then(response => response.json()).then((messages) => {
-    const dataListElement = document.getElementById('data-blast');
-    dataListElement.innerHTML = '';
-    dataListElement.appendChild(
-        createListElement('' + messages.message1));
-    dataListElement.appendChild(
-        createListElement('' + messages.message2));
-    dataListElement.appendChild(
-        createListElement('' + messages.message3));
-    dataListElement.appendChild(
-        createListElement('' + messages.message4));
+    const dataListElement = document.getElementById('data-comments');
+    for (var index in messages) {
+        dataListElement.appendChild(createListElement(messages[index]));
+    }
   });
 }
 

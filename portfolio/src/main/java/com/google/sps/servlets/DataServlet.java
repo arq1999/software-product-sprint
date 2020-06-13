@@ -27,10 +27,6 @@ public class DataServlet extends HttpServlet {
 
   ArrayList<String> comments = new ArrayList<String>() {
       {
-        add("test1");
-        add("test2");
-        add("test3");
-        add("test4");
       }
   };
   
@@ -43,6 +39,21 @@ public class DataServlet extends HttpServlet {
     String json = convertToJson(comments);
     response.setContentType("application/json;");
     response.getWriter().println(json);
+  }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Input
+    String newComment = request.getParameter("commentary").trim();
+    if (newComment.isEmpty()) {
+      response.setContentType("text/html");
+      response.getWriter().println("Please enter a legitimate comment!");
+      return;
+    }
+    comments.add(0, newComment);
+
+    // Redirect back to the HTML page
+    response.sendRedirect("/index.html");
   }
 
   private String convertToJson(ArrayList comments) {
