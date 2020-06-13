@@ -103,3 +103,24 @@ async function getRandomQuoteUsingAsyncAwait() {
   const quote = await response.text();
   document.getElementById('quote-container').innerText = quote;
 }
+
+async function getData() {
+  fetch('/data').then(response => response.json()).then((messages) => {
+    const dataListElement = document.getElementById('data-blast');
+    dataListElement.innerHTML = '';
+    dataListElement.appendChild(
+        createListElement('' + messages.message1));
+    dataListElement.appendChild(
+        createListElement('' + messages.message2));
+    dataListElement.appendChild(
+        createListElement('' + messages.message3));
+    dataListElement.appendChild(
+        createListElement('' + messages.message4));
+  });
+}
+
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
+}
