@@ -20,10 +20,7 @@ document.addEventListener("DOMContentLoaded", showSlides, false);
 
 function addRandomQuote() {
   const quotes =
-      ['Everything hurts and I’m dying'
-      , 'Just remember, every time you look up at the moon, I, too, will be looking at a moon. Not the same moon, obviously, That’s impossible!'
-      , 'I once worked with a guy for three years and never learned his name. Best friend I ever had. We still never talk sometimes'
-      , 'I’m a simple man. I like pretty, dark-haired women, and breakfast food'];
+      ['Fetching a random quote.'];
 
   // Pick a random greeting.
   const quote = quotes[Math.floor(Math.random() * quotes.length)];
@@ -31,6 +28,13 @@ function addRandomQuote() {
   // Add it to the page.
   const quoteContainer = document.getElementById('quote-container');
   quoteContainer.innerText = quote;
+      // The fetch() function returns a Promise because the request is asynchronous.
+  const responsePromise = fetch('/random-quote');
+
+  // When the request is complete, pass the response into handleResponse().
+  responsePromise.then(handleResponse);
+
+
 }
 
 var slideIndex = 1;
@@ -60,4 +64,42 @@ function showSlides(n) {
   }
   slides[slideIndex-1].style.display = "block";
   dots[slideIndex-1].className += " active";
+}
+function handleResponse(response) {
+  console.log('Handling the response.');
+
+  // response.text() returns a Promise, because the response is a stream of
+  // content and not a simple variable.
+  const textPromise = response.text();
+
+  // When the response is converted to text, pass the result into the
+  // addQuoteToDom() function.
+  textPromise.then(addQuoteToDom);
+}
+
+/** Adds a random quote to the DOM. */
+function addQuoteToDom(quote) {
+  console.log('Adding quote to dom: ' + quote);
+
+  const quoteContainer = document.getElementById('quote-container');
+  quoteContainer.innerText = quote;
+}
+
+/**
+ * The above code is organized to show each individual step, but we can use an
+ * ES6 feature called arrow functions to shorten the code. This function
+ * combines all of the above code into a single Promise chain. You can use
+ * whichever syntax makes the most sense to you.
+ */
+function getRandomQuoteUsingArrowFunctions() {
+  fetch('/random-quote').then(response => response.text()).then((quote) => {
+    document.getElementById('quote-container').innerText = quote;
+  });
+}
+
+
+async function getRandomQuoteUsingAsyncAwait() {
+  const response = await fetch('/random-quote');
+  const quote = await response.text();
+  document.getElementById('quote-container').innerText = quote;
 }
