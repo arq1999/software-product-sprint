@@ -104,7 +104,7 @@ async function getRandomQuoteUsingAsyncAwait() {
   document.getElementById('quote-container').innerText = quote;
 }
 
-async function getData() {
+/*async function getData() {
   fetch('/data').then(response => response.json()).then((messages) => {
     const dataListElement = document.getElementById('data-comments');
     for (var index in messages) {
@@ -112,9 +112,25 @@ async function getData() {
     }
   });
 }
-
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
+*/
+function loadTasks() {
+  fetch('/list-tasks').then(response => response.json()).then((tasks) => {
+    const taskListElement = document.getElementById('task-list');
+    tasks.forEach((task) => {
+      taskListElement.appendChild(createTaskElement(task));
+    })
+  });
 }
+
+/** Creates an element that represents a task */
+function createTaskElement(task) {
+    const taskElement = document.createElement('li');
+    taskElement.className = 'task';
+    const newCommentElement = document.createElement('span');
+    newCommentElement.innerText = task.newComment;
+
+    taskElement.appendChild(newCommentElement);
+
+    return taskElement;
+}
+
