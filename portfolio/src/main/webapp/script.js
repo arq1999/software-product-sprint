@@ -129,8 +129,25 @@ function createTaskElement(task) {
     const newCommentElement = document.createElement('span');
     newCommentElement.innerText = task.newComment;
 
+    const deleteButtonElement = document.createElement('button');
+    deleteButtonElement.innerText = 'Delete';
+    deleteButtonElement.addEventListener('click', () => {
+    deleteTask(task);
+
+    // Remove the task from the DOM.
+    taskElement.remove();
+  });
+
+
     taskElement.appendChild(newCommentElement);
+    taskElement.appendChild(deleteButtonElement);
 
     return taskElement;
+}
+
+function deleteTask(task) {
+  const params = new URLSearchParams();
+  params.append('id', task.id);
+  fetch('/delete-task', {method: 'POST', body: params});
 }
 
