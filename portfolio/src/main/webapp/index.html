@@ -9,7 +9,7 @@
     <script src="script.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
   </head>
-  <body>
+  <body onload="loadTasks()">
                                 
     <div class="navbar"> 
         
@@ -22,12 +22,14 @@
         <a href="#bio"> Bio</a>
         <a href="#resume">Resume and Projects</a>
         <a href="#contact">Contact me</a>
+        
         <a href="#workingOn">Working On</a>
+         <a  href="/data">Log In</a>
     </div>   
 
     <div class="main" id="bio">
     <h2>Bio</h2>
-        <p>Hello My name is <a href="/data" > David Requena</a></p>
+        <p>Hello My name is David Requena</a></p>
         <p>Im a junior at Citytech working towards my CST Major</p>
         <p>I like to keep my self a bit occupied doing hobbies Some of them are Mechanical keyboards, Model Kits and Gaming <p>
                         <!-- Slideshow container -->
@@ -119,6 +121,17 @@
             </li>
         </ul>
     </div>
+
+    <form method="POST" action="/list-tasks">
+        <h3>Below you can enter comments on what you want to see on either page</h3>
+      <input type="text" name="newComment" />
+      <br/>
+      <button>Submit</button>
+    </form>
+    <h3>Comments</h3>
+    <ul id="task-list"></ul>
+
+
       <p>Click here to get a random message:</p>
       <button onclick="addRandomQuote()">Quotes</button>
       <div id="quote-container"></div>

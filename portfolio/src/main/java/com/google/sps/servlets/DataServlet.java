@@ -14,7 +14,18 @@
 
 package com.google.sps.servlets;
 
+import com.google.gson.Gson;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.gson.Gson;
+import com.google.sps.data.Task;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,36 +33,48 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
-@WebServlet("/data")
+@WebServlet("/list-tasks")
 public class DataServlet extends HttpServlet {
 
-  ArrayList<String> comments = new ArrayList<String>() {
-      {
-        add("test1");
-        add("test2");
-        add("test3");
-        add("test4");
-      }
-  };
-  
+    @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Input
+    String newComment = request.getParameter("newComment");
+
+    Entity taskEntity = new Entity("Task");
+    taskEntity.setProperty("newComment", newComment);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(taskEntity);
+
+    // Redirect back to the HTML page
+        response.sendRedirect("/index.html");
+  }
+
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    //response.setContentType("text/html;");
-    //response.getWriter().println("<h1>A work in progress...</h1>");
+    Query query = new Query("Task");
 
-    //Responding with json-converted ArrayList
-    String json = convertToJson(comments);
-    response.setContentType("application/json;");
-    response.getWriter().println(json);
-  }
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
 
-  private String convertToJson(ArrayList comments) {
-    String json = "{";
-    for (int c = 0; c < comments.size(); c++) {
-        json += "\"message" + (c+1) + "\": \"" + comments.get(c) + "\"";
-        if (c != comments.size() -1) json += ", ";
+    List<Task> tasks = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+
+      String newComment = (String) entity.getProperty("newComment");
+
+      Task task = new Task(newComment);
+      tasks.add(task);
     }
-    json += "}";
-    return json;
+
+    Gson gson = new Gson();
+    response.setContentType("application/json;");
+    response.getWriter().println(gson.toJson(tasks));
   }
+
+  
+
 }
+
+
