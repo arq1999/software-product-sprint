@@ -16,6 +16,7 @@
  * Adds a random greeting to the page.
  */
 document.addEventListener("DOMContentLoaded", showSlides, false);
+document.addEventListener("DOMContentLoaded", createMap, false);
 
 
 function addRandomQuote() {
@@ -104,23 +105,55 @@ async function getRandomQuoteUsingAsyncAwait() {
   document.getElementById('quote-container').innerText = quote;
 }
 
-async function getData() {
+/*async function getData() {
   fetch('/data').then(response => response.json()).then((messages) => {
-    const dataListElement = document.getElementById('data-blast');
-    dataListElement.innerHTML = '';
-    dataListElement.appendChild(
-        createListElement('' + messages.message1));
-    dataListElement.appendChild(
-        createListElement('' + messages.message2));
-    dataListElement.appendChild(
-        createListElement('' + messages.message3));
-    dataListElement.appendChild(
-        createListElement('' + messages.message4));
+    const dataListElement = document.getElementById('data-comments');
+    for (var index in messages) {
+        dataListElement.appendChild(createListElement(messages[index]));
+    }
+  });
+}
+*/
+function loadTasks() {
+  fetch('/list-tasks').then(response => response.json()).then((tasks) => {
+    const taskListElement = document.getElementById('task-list');
+    tasks.forEach((task) => {
+      taskListElement.appendChild(createTaskElement(task));
+    })
   });
 }
 
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
+/** Creates an element that represents a task */
+function createTaskElement(task) {
+    const taskElement = document.createElement('li');
+    taskElement.className = 'task';
+    const newCommentElement = document.createElement('span');
+    newCommentElement.innerText = task.newComment;
+
+    const deleteButtonElement = document.createElement('button');
+    deleteButtonElement.innerText = 'Delete';
+    deleteButtonElement.addEventListener('click', () => {
+    deleteTask(task);
+
+    // Remove the task from the DOM.
+    taskElement.remove();
+  });
+
+
+    taskElement.appendChild(newCommentElement);
+    taskElement.appendChild(deleteButtonElement);
+
+    return taskElement;
+}
+
+function deleteTask(task) {
+  const params = new URLSearchParams();
+  params.append('id', task.id);
+  fetch('/delete-task', {method: 'POST', body: params});
+}
+// map function 
+function createMap() {
+  const map = new google.maps.Map(
+      document.getElementById('map'),
+      {center: {lat: 37.422, lng: -122.084}, zoom: 16});
 }
