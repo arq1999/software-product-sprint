@@ -16,6 +16,7 @@
  * Adds a random greeting to the page.
  */
 document.addEventListener("DOMContentLoaded", showSlides, false);
+document.addEventListener("DOMContentLoaded", createMap, false);
 
 
 function addRandomQuote() {
@@ -150,4 +151,9 @@ function deleteTask(task) {
   params.append('id', task.id);
   fetch('/delete-task', {method: 'POST', body: params});
 }
-
+// map function 
+function createMap() {
+  const map = new google.maps.Map(
+      document.getElementById('map'),
+      {center: {lat: 37.422, lng: -122.084}, zoom: 16});
+}

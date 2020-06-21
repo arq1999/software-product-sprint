@@ -6,6 +6,7 @@
     <title>My Portfolio David</title>
     <link rel="icon" href="/images/profile.png">
     <link rel="stylesheet" href="style.css">
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMAkg6R3RgIzcqd_mUs6Lwf6X1v64DG-g"></script>
     <script src="script.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
   </head>
@@ -135,5 +136,13 @@
       <p>Click here to get a random message:</p>
       <button onclick="addRandomQuote()">Quotes</button>
       <div id="quote-container"></div>
+
+    <iframe onload="createMap();"></iframe>
+
+        <h1>Google Maps</h1>
+        <div id="map"></div>
+        <p>This page shows a Google Map!</p>
+
+
   </body>
 </html>
